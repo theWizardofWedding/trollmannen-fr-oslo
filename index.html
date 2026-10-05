@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="nb"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#191628"/><meta name="description" content="Magisk poengføring for Wizard: meldinger, stikk, statistikk og spillhistorikk."/><title>Verzaubertes Wedding · Wizard</title><link rel="icon" href="icon.svg" type="image/svg+xml"/><link rel="stylesheet" href="styles.css"/></head><body>
+<main class="app-shell">
+<section class="hero" aria-label="Verzaubertes Wedding">
+<div class="brand-block">
+          <div class="edition-badge">✦ MAGISK SPILLKVELD ✦</div><p class="eyebrow">Wizard-database</p><h1>Verzaubertes Wedding</h1><div class="round-number" id="heroStatus">Lagrede spill</div><p class="round-help" id="heroHelp">Magisk poengføring for spillkvelden.</p></div>
+<div class="score-glance" id="scoreGlance" aria-live="polite"></div></section>
+<section class="workspace" aria-label="Wizard-kontroller">
+        <nav class="experience-bar" aria-label="Lyd, effekter og sikkerhetskopier">
+          <div class="experience-options"><button id="soundButton" type="button" aria-pressed="false">♪ Lyd av</button><button id="effectsButton" type="button" aria-pressed="true">✦ Effekter på</button></div>
+          <div class="experience-options"><button id="exportButton" type="button">Eksporter</button><button id="importButton" type="button">Importer</button><input id="importInput" type="file" accept="application/json,.json" hidden /></div>
+        </nav>
+<section class="home-view is-active" id="homeView" aria-label="Lagrede Wizard-spill">
+<div class="topbar"><div><span class="panel-kicker">Arkiv</span><h2>Spill</h2></div><button class="primary-action compact-action" id="showCreateButton" type="button">Nytt spill</button></div>
+<form class="setup-panel create-panel" id="createGameForm" autocomplete="off"><div class="panel-heading"><div><span class="panel-kicker">Oppsett</span><h2>Opprett spill</h2></div></div>
+<label for="gameName">Spillnavn</label><input id="gameName" name="gameName" type="text" placeholder="Wizard på fredagskvelden" maxlength="32"/>
+<label for="playerName">Spillere</label><div class="add-row"><input id="playerName" name="playerName" type="text" placeholder="Navn" maxlength="18"/><button type="submit" name="intent" value="add">Legg til</button></div>
+<div class="player-list" id="draftPlayerList"></div><button class="primary-action" type="submit" name="intent" value="start">Start poengføring</button><p class="form-message" id="createMessage" role="status" aria-live="polite"></p></form>
+<section class="saved-panel" aria-label="Tidligere spill"><div class="panel-heading"><div><span class="panel-kicker">Tidligere runder</span><h2>Lagrede spill</h2></div></div><div class="saved-list" id="savedGamesList"></div></section></section>
+<section class="game-view" id="gameView" aria-label="Aktivt spill">
+<div class="toolbar"><button class="secondary-action" id="backButton" type="button">Spill</button><div class="toolbar-actions"><button class="icon-button" id="finishGameButton" type="button" title="Avslutt spillet" aria-label="Avslutt spillet"><span aria-hidden="true">✓</span></button><button class="icon-button" id="undoButton" type="button" title="Angre siste runde" aria-label="Angre siste runde"><span aria-hidden="true">↶</span></button></div></div>
+<div class="view-switch" role="tablist" aria-label="Wizard-visninger"><button class="view-tab is-active" id="entryTab" type="button" role="tab" aria-selected="true" aria-controls="entryView" data-view="entry">Poengføring</button><button class="view-tab" id="statsTab" type="button" role="tab" aria-selected="false" aria-controls="statsView" data-view="stats">Statistikk</button></div>
+<div class="view-panel is-active" id="entryView" role="tabpanel" aria-labelledby="entryTab"><form class="round-panel" id="roundForm"><div class="panel-heading"><div><span class="panel-kicker">Meldte og vunne stikk</span><h2 id="roundTitle">Runde 1</h2></div><span class="cards-count" id="cardsCount">1 kort</span></div><div class="entry-grid" id="entryGrid"></div><div class="round-check"><span id="bidTotal">Meldte stikk totalt: 0</span><span id="trickTotal">Vunne stikk: 0 / 1</span></div><button class="primary-action" id="scoreRoundButton" type="submit">Lagre runden</button><p class="form-message" id="formMessage" role="status" aria-live="polite"></p></form>
+<section class="history-panel" aria-label="Poenghistorikk"><div class="panel-heading"><div><span class="panel-kicker">Stilling</span><h2>Poengoversikt</h2></div></div><div class="history-table-wrap"><table class="history-table" id="historyTable"></table></div></section></div>
+<section class="view-panel stats-panel" id="statsView" role="tabpanel" aria-labelledby="statsTab" aria-label="Spillstatistikk"><div class="panel-heading"><div><span class="panel-kicker">Analyse</span><h2>Statistikk</h2></div></div>
+<div class="chart-card chart-card-wide"><div class="chart-heading"><span class="panel-kicker">Poengutvikling</span><h3>Poeng etter hver runde</h3></div><div class="line-chart" id="pointsTrendChart"></div></div>
+<div class="chart-grid"><div class="chart-card"><div class="chart-heading"><span class="panel-kicker">Treffsikkerhet</span><h3>Andel riktige meldinger</h3></div><div class="mini-chart" id="hitRateChart"></div></div><div class="chart-card"><div class="chart-heading"><span class="panel-kicker">Meldingsstil</span><h3>Meldte og vunne stikk i snitt</h3></div><div class="mini-chart" id="bidTrickChart"></div><p class="round-help" style="font-size:.78rem">Farget stolpe: meldte stikk. Lys stolpe: vunne stikk.</p></div></div>
+<div class="chart-card"><div class="chart-heading"><span class="panel-kicker">Rangering</span><h3>Poeng totalt</h3></div><div class="leaderboard-chart" id="leaderboardChart"></div></div><div class="stats-grid" id="statsGrid"></div></section></section></section></main>
+<noscript><p>Aktiver JavaScript i nettleseren for å bruke poengføringen.</p></noscript>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="recapDialog" class="recap-dialog" aria-labelledby="recapTitle" aria-describedby="recapSubtitle">
+      <div class="recap-orbit" aria-hidden="true">✦</div>
+      <p class="panel-kicker">Wizard-øyeblikket</p>
+      <h2 id="recapTitle"></h2><p id="recapSubtitle" class="recap-subtitle"></p>
+      <div id="recapList" class="recap-list"></div>
+      <button id="recapClose" class="primary-action" type="button" autofocus>Neste runde →</button>
+      <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+    </dialog>
+    <script src="app.js"></script>
+</body></html>
